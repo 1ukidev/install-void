@@ -1,12 +1,4 @@
-loadkeys br-abnt2
-
-cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant-wlo1.conf
-wpa_passphrase RMM criatividade0 >> /etc/wpa_supplicant/wpa_supplicant-wlo1.conf
-sv restart dhcpcd
-ip link set up wlo1
-wpa_supplicant -B -i wlo1 -c /etc/wpa_supplicant/wpa_supplicant-wlo1.conf
-
-wipefs /dev/sda
+wipefs --all --force /dev/sda
 cfdisk -z /dev/sda
 mkfs.vfat -nBOOT -F32 /dev/sda1
 mkfs.ext2 -L grub /dev/sda2
