@@ -1,3 +1,5 @@
+set -e
+
 wipefs --all --force /dev/sda
 cfdisk -z /dev/sda
 mkfs.vfat -nBOOT -F32 /dev/sda1
