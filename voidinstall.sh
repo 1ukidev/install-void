@@ -31,7 +31,7 @@ mount -o rw,noatime /dev/sda2 /mnt/boot
 
 REPO=https://mirrors.servercentral.com/voidlinux/current
 ARCH=x86_64
-XBPS_ARCH=$ARCH xbps-install -S -R "$REPO" -r /mnt base-system btrfs-progs cryptsetup zstd
+XBPS_ARCH=$ARCH xbps-install -S -y -R "$REPO" -r /mnt base-system btrfs-progs cryptsetup zstd
 
 for dir in dev proc sys run; do mount --rbind /$dir /mnt/$dir; mount --make-rslave /mnt/$dir; done
 cp /etc/resolv.conf /mnt/etc/

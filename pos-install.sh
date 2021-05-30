@@ -14,8 +14,8 @@ printf "UUID=$ROOT_UUID / btrfs $BTRFS_OPTS,subvol=@ 0 1\nUUID=$UEFI_UUID /efi v
 
 echo hostonly=yes >> /etc/dracut.conf
 
-xbps-install -Su void-repo-nonfree
-xbps-install -S intel-ucode
+xbps-install -Su -y void-repo-nonfree
+xbps-install -S -y intel-ucode
 
 xbps-install grub-x86_64-efi
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id="Void Linux"
@@ -31,5 +31,3 @@ swapon /var/swap/swapfile
 
 xbps-reconfigure -fa
 rm -Rf /var/cache/xbps
-
-exit 1
