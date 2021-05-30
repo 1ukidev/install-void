@@ -36,4 +36,6 @@ XBPS_ARCH=$ARCH xbps-install -S -R "$REPO" -r /mnt base-system btrfs-progs crypt
 for dir in dev proc sys run; do mount --rbind /$dir /mnt/$dir; mount --make-rslave /mnt/$dir; done
 cp /etc/resolv.conf /mnt/etc/
 
+cp -r /root/voidlinux-main/pos-install.sh /mnt/root/pos-install.sh
+
 BTRFS_OPTS=$BTRFS_OPTS PS1='(chroot) # ' chroot /mnt/ /bin/bash
