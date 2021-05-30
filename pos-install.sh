@@ -7,6 +7,7 @@ xbps-reconfigure -f glibc-locales
 
 passwd
 
+BTRFS_OPTS="rw,noatime,ssd,compress=zstd,space_cache,commit=120"
 UEFI_UUID=$(blkid -s UUID -o value /dev/sda1)
 GRUB_UUID=$(blkid -s UUID -o value /dev/sda2)
 ROOT_UUID=$(blkid -s UUID -o value /dev/mapper/cryptroot)
@@ -20,7 +21,6 @@ xbps-install -S -y intel-ucode
 xbps-install grub-x86_64-efi
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id="Void Linux"
 
-btrfs subvolume create /var/swap
 truncate -s 0 /var/swap/swapfile
 chattr +C /var/swap/swapfile
 btrfs property set /var/swap/swapfile compression none
