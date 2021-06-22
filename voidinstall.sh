@@ -1,5 +1,10 @@
 set -e
 
+# Layout: GPT
+# /dev/sda1 - EFI
+# /dev/sda2 - GRUB
+# /dev/sda3 - VOID
+
 wipefs --all --force /dev/sda
 cfdisk -z /dev/sda
 mkfs.vfat -nBOOT -F32 /dev/sda1
