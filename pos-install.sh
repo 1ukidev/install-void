@@ -18,7 +18,7 @@ echo hostonly=yes >> /etc/dracut.conf
 xbps-install -Su -y void-repo-nonfree
 xbps-install -S -y intel-ucode
 
-xbps-install -y grub-x86_64-efi
+xbps-install -S -y grub-x86_64-efi
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id="Void Linux"
 
 truncate -s 0 /var/swap/swapfile
