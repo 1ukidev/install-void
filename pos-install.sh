@@ -7,7 +7,7 @@ xbps-reconfigure -f glibc-locales
 
 passwd
 
-BTRFS_OPTS="rw,noatime,ssd,compress=zstd,space_cache,commit=120"
+BTRFS_OPTS="rw,noatime,discard,ssd,compress=zstd,space_cache,commit=120"
 UEFI_UUID=$(blkid -s UUID -o value /dev/sda1)
 GRUB_UUID=$(blkid -s UUID -o value /dev/sda2)
 ROOT_UUID=$(blkid -s UUID -o value /dev/mapper/cryptroot)
@@ -30,4 +30,4 @@ mkswap /var/swap/swapfile
 swapon /var/swap/swapfile
 
 xbps-reconfigure -fa
-rm -Rf /var/cache/xbps
+rm -rf /var/cache/xbps
