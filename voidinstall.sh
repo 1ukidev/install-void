@@ -8,7 +8,7 @@ cryptsetup luksFormat --type=luks -s=512 /dev/sda3
 cryptsetup open /dev/sda3 cryptroot
 mkfs.btrfs -f -L void /dev/mapper/cryptroot
 
-BTRFS_OPTS="rw,noatime,ssd,compress=zstd,space_cache,commit=120"
+BTRFS_OPTS="rw,noatime,discard,ssd,compress=zstd,space_cache,commit=120"
 mount -o $BTRFS_OPTS /dev/mapper/cryptroot /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
