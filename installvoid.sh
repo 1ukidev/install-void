@@ -1,5 +1,6 @@
 set -e
 
+# UEFI
 # Layout: GPT
 # /dev/sda1 - EFI
 # /dev/sda2 - GRUB
