@@ -7,7 +7,7 @@ set -e
 # /dev/sda2 - GRUB
 # /dev/sda3 - VOID
 
-wipefs --a /dev/sda
+wipefs -a /dev/sda
 cfdisk -z /dev/sda
 mkfs.vfat -nBOOT -F32 /dev/sda1
 mkfs.ext2 -L grub /dev/sda2
