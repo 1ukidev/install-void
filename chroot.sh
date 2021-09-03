@@ -4,8 +4,8 @@ set -e
 vi /etc/hostname
 vi /etc/rc.conf
 vi /etc/default/libc-locales
+vi /etc/locale.conf
 xbps-reconfigure -f glibc-locales
-
 passwd
 
 BTRFS_OPTS="rw,noatime,discard,ssd,compress=zstd,space_cache,commit=120"
@@ -13,7 +13,6 @@ UEFI_UUID=$(blkid -s UUID -o value /dev/sda1)
 GRUB_UUID=$(blkid -s UUID -o value /dev/sda2)
 ROOT_UUID=$(blkid -s UUID -o value /dev/mapper/cryptroot)
 printf "UUID=$ROOT_UUID / btrfs $BTRFS_OPTS,subvol=@ 0 1\nUUID=$UEFI_UUID /efi vfat defaults,noatime 0 2\nUUID=$GRUB_UUID /boot ext2 defaults,noatime 0 2\nUUID=$ROOT_UUID /home btrfs $BTRFS_OPTS,subvol=@home 0 2\nUUID=$ROOT_UUID /.snapshots btrfs $BTRFS_OPTS,subvol=@snapshots 0 2\ntmpfs /tmp tmpfs defaults,nosuid,nodev 0 0\n/var/swap/swapfile none swap sw 0 0\n" >> /etc/fstab
-
 echo hostonly=yes >> /etc/dracut.conf
 
 xbps-install -Su -y void-repo-nonfree
