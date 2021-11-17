@@ -8,7 +8,7 @@ vi /etc/locale.conf
 xbps-reconfigure -f glibc-locales
 passwd
 
-BTRFS_OPTS="rw,noatime,discard,ssd,compress=zstd,space_cache,commit=120"
+BTRFS_OPTS="noatime,discard,compress=zstd,space_cache,autodefrag"
 UEFI_UUID=$(blkid -s UUID -o value /dev/sda1)
 GRUB_UUID=$(blkid -s UUID -o value /dev/sda2)
 ROOT_UUID=$(blkid -s UUID -o value /dev/mapper/cryptroot)
