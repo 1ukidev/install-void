@@ -31,3 +31,6 @@ swapon /var/swap/swapfile
 
 xbps-reconfigure -fa
 rm -rf /var/cache/xbps
+rm /root/chroot.sh
+
+printf "\n\nVoid Linux successfully installed!\n\n"
