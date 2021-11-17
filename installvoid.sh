@@ -10,10 +10,10 @@ set -e
 wipefs -a /dev/sda
 cfdisk -z /dev/sda
 mkfs.vfat -nBOOT -F32 /dev/sda1
-mkfs.ext2 -L grub /dev/sda2
+mkfs.ext2 -L GRUB /dev/sda2
 cryptsetup luksFormat --type=luks -s=512 /dev/sda3
 cryptsetup open /dev/sda3 cryptroot
-mkfs.btrfs -f -L void /dev/mapper/cryptroot
+mkfs.btrfs -f -L VOID /dev/mapper/cryptroot
 
 BTRFS_OPTS="noatime,discard,compress=zstd,space_cache,autodefrag"
 mount -o $BTRFS_OPTS /dev/mapper/cryptroot /mnt
@@ -32,9 +32,9 @@ btrfs subvolume create /mnt/var/tmp
 btrfs subvolume create /mnt/srv
 btrfs subvolume create /mnt/var/swap
 mkdir /mnt/efi
-mount -o rw,noatime /dev/sda1 /mnt/efi
+mount -o noatime /dev/sda1 /mnt/efi
 mkdir /mnt/boot
-mount -o rw,noatime /dev/sda2 /mnt/boot
+mount -o noatime /dev/sda2 /mnt/boot
 
 REPO=https://mirrors.servercentral.com/voidlinux/current
 ARCH=x86_64
