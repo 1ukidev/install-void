@@ -32,4 +32,10 @@ xbps-reconfigure -fa
 rm -rf /var/cache/xbps
 rm /root/chroot.sh
 
+IFS= read -rp "Enter username: " USERNAME
+IFS= read -rp "Enter name: " NAME 
+useradd -m -G wheel,input,video,audio -s /bin/zsh -c "$NAME" $USERNAME
+passwd $USERNAME
+visudo
+
 printf "\n\nVoid Linux successfully installed!\n\n"
