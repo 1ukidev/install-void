@@ -8,7 +8,7 @@ set -e
 # /dev/sda3 - VOID
 
 cfdisk -z /dev/sda
-mkfs.vfat -nBOOT -F32 /dev/sda1
+mkfs.vfat -nEFI -F32 /dev/sda1
 mkfs.ext2 -L GRUB /dev/sda2
 cryptsetup luksFormat --type=luks -s=512 /dev/sda3
 cryptsetup open /dev/sda3 cryptroot
