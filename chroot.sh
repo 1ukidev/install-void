@@ -16,6 +16,10 @@ ROOT_UUID=$(blkid -s UUID -o value /dev/mapper/cryptroot)
 printf "UUID=$ROOT_UUID / btrfs $BTRFS_OPTS,subvol=@ 0 1\nUUID=$UEFI_UUID /efi vfat defaults,noatime 0 2\nUUID=$GRUB_UUID /boot ext2 defaults,noatime 0 2\nUUID=$ROOT_UUID /home btrfs $BTRFS_OPTS,subvol=@home 0 2\nUUID=$ROOT_UUID /.snapshots btrfs $BTRFS_OPTS,subvol=@snapshots 0 2\n/var/swap/swapfile none swap sw 0 0\n" >> /etc/fstab
 echo hostonly=yes >> /etc/dracut.conf
 
+mkdir /etc/xbps.d
+cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+sed -i 's|https://alpha.de.repo.voidlinux.org|https://mirrors.servercentral.com/voidlinux/|g' /etc/xbps.d/*-repository-*.conf
+
 xbps-install -Su -y void-repo-nonfree void-repo-multilib 
 xbps-install -S -y intel-ucode grub-x86_64-efi
 
