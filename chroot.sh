@@ -6,7 +6,6 @@ vi /etc/rc.conf
 vi /etc/default/libc-locales
 vi /etc/locale.conf
 xbps-reconfigure -f glibc-locales
-printf "\n\nSet root password:\n"
 passwd
 
 BTRFS_OPTS="noatime,discard=async,compress=zstd,space_cache=v2,autodefrag"
