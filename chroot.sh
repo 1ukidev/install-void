@@ -6,7 +6,7 @@ vi /etc/rc.conf
 vi /etc/default/libc-locales
 vi /etc/locale.conf
 xbps-reconfigure -f glibc-locales
-printf "\n\nSet root password:\n\n"
+printf "\n\nSet root password:\n"
 passwd
 
 BTRFS_OPTS="noatime,discard=async,compress=zstd,space_cache=v2,autodefrag"
@@ -37,10 +37,10 @@ xbps-reconfigure -fa
 rm -rf /var/cache/xbps
 rm /root/chroot.sh
 
-IFS= read -rp "Enter username: " USERNAME
-IFS= read -rp "Enter name: " NAME 
-useradd -m -G wheel,input,video,audio -s /bin/bash -c "$NAME" $USERNAME
-passwd $USERNAME
+IFS= read -rp "Enter username: " username
+IFS= read -rp "Enter name: " name 
+useradd -m -G wheel,input,video,audio -s /bin/bash -c "$name" $username
+passwd $username
 visudo
 
 printf "\n\nVoid Linux successfully installed!\n\n"

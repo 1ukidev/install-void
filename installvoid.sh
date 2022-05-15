@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
+scriptDirectory=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+
 # UEFI
 # Layout: GPT
 # /dev/sda1 - EFI
 # /dev/sda2 - GRUB
 # /dev/sda3 - VOID
-
 cfdisk -z /dev/sda
 mkfs.vfat -nEFI -F32 /dev/sda1
 mkfs.ext2 -L GRUB /dev/sda2
@@ -42,6 +43,6 @@ XBPS_ARCH=$ARCH xbps-install -S -y -R "$REPO" -r /mnt base-system btrfs-progs cr
 for dir in dev proc sys run; do mount --rbind /$dir /mnt/$dir; mount --make-rslave /mnt/$dir; done
 cp /etc/resolv.conf /mnt/etc/
 
-cp ./chroot.sh /mnt/root/
+cp $scriptDirectory/chroot.sh /mnt/root/
 
 BTRFS_OPTS=$BTRFS_OPTS PS1='(chroot) # ' chroot /mnt/ /bin/bash
