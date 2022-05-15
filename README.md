@@ -1,7 +1,7 @@
 # Install Void
 Shell script to install Void Linux.
 
-**WARNING: don't run the script without understanding it first!**
+**WARNING: don't run the script without understanding it first! This script is destructive!**
 
 - Btrfs with Zstandard compression
 - LUKS-encrypted root and swapfile
