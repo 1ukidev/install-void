@@ -12,7 +12,7 @@ BTRFS_OPTS="noatime,discard=async,compress=zstd,space_cache=v2,autodefrag"
 UEFI_UUID=$(blkid -s UUID -o value /dev/sda1)
 GRUB_UUID=$(blkid -s UUID -o value /dev/sda2)
 ROOT_UUID=$(blkid -s UUID -o value /dev/mapper/cryptroot)
-printf "UUID=$ROOT_UUID / btrfs $BTRFS_OPTS,subvol=@ 0 1\nUUID=$UEFI_UUID /efi vfat defaults,noatime 0 2\nUUID=$GRUB_UUID /boot ext2 defaults,noatime 0 2\nUUID=$ROOT_UUID /home btrfs $BTRFS_OPTS,subvol=@home 0 2\nUUID=$ROOT_UUID /.snapshots btrfs $BTRFS_OPTS,subvol=@snapshots 0 2\n/var/swap/swapfile none swap sw 0 0\n" >> /etc/fstab
+printf "UUID=$ROOT_UUID / btrfs $BTRFS_OPTS,subvol=@ 0 1\nUUID=$UEFI_UUID /efi vfat ro,defaults,noatime 0 2\nUUID=$GRUB_UUID /boot ext2 defaults,noatime 0 2\nUUID=$ROOT_UUID /home btrfs $BTRFS_OPTS,subvol=@home 0 2\nUUID=$ROOT_UUID /.snapshots btrfs $BTRFS_OPTS,subvol=@snapshots 0 2\n/var/swap/swapfile none swap sw 0 0\n" >> /etc/fstab
 echo hostonly=yes >> /etc/dracut.conf
 
 mkdir /etc/xbps.d
