@@ -13,7 +13,7 @@ mkfs.vfat -nEFI -F32 /dev/sda1
 mkfs.ext2 -L GRUB /dev/sda2
 cryptsetup luksFormat --type=luks -s=512 /dev/sda3
 cryptsetup open /dev/sda3 cryptroot
-mkfs.btrfs -f -L VOID /dev/mapper/cryptroot
+mkfs.btrfs -f -L VOID --csum xxhash /dev/mapper/cryptroot
 
 BTRFS_OPTS="noatime,discard=async,compress=zstd,space_cache=v2,autodefrag"
 mount -o $BTRFS_OPTS /dev/mapper/cryptroot /mnt
@@ -36,9 +36,8 @@ mount -o noatime /dev/sda1 /mnt/efi
 mkdir /mnt/boot
 mount -o noatime /dev/sda2 /mnt/boot
 
-REPO=https://mirrors.servercentral.com/voidlinux/current
 ARCH=x86_64
-XBPS_ARCH=$ARCH xbps-install -S -y -R "$REPO" -r /mnt base-system btrfs-progs cryptsetup sudo
+XBPS_ARCH=$ARCH xbps-install -S -y -r /mnt base-system btrfs-progs cryptsetup sudo
 
 for dir in dev proc sys run; do mount --rbind /$dir /mnt/$dir; mount --make-rslave /mnt/$dir; done
 cp /etc/resolv.conf /mnt/etc/
