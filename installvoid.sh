@@ -36,8 +36,9 @@ mount -o noatime /dev/sda1 /mnt/efi
 mkdir /mnt/boot
 mount -o noatime /dev/sda2 /mnt/boot
 
+REPO=https://repo-default.voidlinux.org/current
 ARCH=x86_64
-XBPS_ARCH=$ARCH xbps-install -S -y -r /mnt base-system btrfs-progs cryptsetup sudo
+XBPS_ARCH=$ARCH xbps-install -S -y -r /mnt -R $REPO base-system btrfs-progs cryptsetup sudo
 
 for dir in dev proc sys run; do mount --rbind /$dir /mnt/$dir; mount --make-rslave /mnt/$dir; done
 cp /etc/resolv.conf /mnt/etc/
