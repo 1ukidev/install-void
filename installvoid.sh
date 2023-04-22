@@ -5,14 +5,14 @@ scriptDirectory=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
 # UEFI
 # Layout: GPT
-# /dev/sda1 - EFI
-# /dev/sda2 - GRUB
-# /dev/sda3 - VOID
-cfdisk -z /dev/sda
-mkfs.vfat -nEFI -F32 /dev/sda1
-mkfs.ext2 -L GRUB /dev/sda2
-cryptsetup luksFormat --type=luks -s=512 /dev/sda3
-cryptsetup open /dev/sda3 cryptroot
+# /dev/nvme0n1p1 - EFI
+# /dev/nvme0n1p2 - GRUB
+# /dev/nvme0n1p3 - VOID
+cfdisk -z /dev/nvme0n1
+mkfs.vfat -nEFI -F32 /dev/nvme0n1p1
+mkfs.ext2 -L GRUB /dev/nvme0n1p2
+cryptsetup luksFormat --type=luks -s=512 /dev/nvme0n1p3
+cryptsetup open /dev/nvme0n1p3 cryptroot
 mkfs.btrfs -f -L VOID --csum xxhash /dev/mapper/cryptroot
 
 BTRFS_OPTS="noatime,discard=async,compress=zstd,space_cache=v2,autodefrag"
@@ -36,7 +36,7 @@ mount -o noatime /dev/sda1 /mnt/efi
 mkdir /mnt/boot
 mount -o noatime /dev/sda2 /mnt/boot
 
-REPO=https://repo-default.voidlinux.org/current
+REPO=https://voidlinux.com.br/repo/current/
 ARCH=x86_64
 XBPS_ARCH=$ARCH xbps-install -S -y -r /mnt -R $REPO base-system btrfs-progs cryptsetup sudo
 
