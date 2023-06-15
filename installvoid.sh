@@ -36,7 +36,7 @@ mount -o noatime /dev/nvme0n1p1 /mnt/efi
 mkdir /mnt/boot
 mount -o noatime /dev/nvme0n1p2 /mnt/boot
 
-REPO=https://voidlinux.com.br/repo/current/
+REPO=https://repo-fastly.voidlinux.org/current/
 ARCH=x86_64
 XBPS_ARCH=$ARCH xbps-install -S -y -r /mnt -R $REPO base-system btrfs-progs cryptsetup sudo
 
