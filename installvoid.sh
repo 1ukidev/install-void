@@ -32,9 +32,9 @@ btrfs subvolume create /mnt/var/tmp
 btrfs subvolume create /mnt/srv
 btrfs subvolume create /mnt/var/swap
 mkdir /mnt/efi
-mount -o noatime /dev/sda1 /mnt/efi
+mount -o noatime /dev/nvme0n1p1 /mnt/efi
 mkdir /mnt/boot
-mount -o noatime /dev/sda2 /mnt/boot
+mount -o noatime /dev/nvme0n1p2 /mnt/boot
 
 REPO=https://voidlinux.com.br/repo/current/
 ARCH=x86_64
